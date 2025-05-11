@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Edad</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: "Times New Roman", Times, serif;
+      text-align: center;
+      padding: 50px;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+      font-family: "Times New Roman", Times, serif;
+    }
+
+    .niño {
+      color: yellow;
+    }
+
+    .adolescente {
+      color: orange;
+    }
+
+    .adulto {
+      color: lightgreen;
+    }
+
+    .mayor {
+      color: lightblue;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Calculadora de Edad</h1>
+
+  <input type="text" id="nombre" placeholder="Ingresa tu nombre">
+  <input type="number" id="anio" placeholder="Año de nacimiento">
+  <button onclick="calcularEdad()">Calcular edad</button>
+
+  <div id="resultado"></div>
+
+  <script>
+    function calcularEdad() {
+      const nombre = document.getElementById("nombre").value.trim();
+      const anio = parseInt(document.getElementById("anio").value);
+      const resultado = document.getElementById("resultado");
+      resultado.className = ""; // Limpiar clases anteriores
+
+      if (!nombre || isNaN(anio)) {
+        resultado.textContent = "Por favor, ingresa tu nombre y un año válido.";
+        return;
+      }
+
+      const anioActual = new Date().getFullYear();
+      const edad = anioActual - anio;
+
+      let categoria = "";
+      if (edad >= 0 && edad <= 12) {
+        categoria = "niño";
+      } else if (edad >= 13 && edad <= 17) {
+        categoria = "adolescente";
+      } else if (edad >= 18 && edad <= 59) {
+        categoria = "adulto";
+      } else if (edad >= 60) {
+        categoria = "mayor";
+      } else {
+        resultado.textContent = "Año no válido.";
+        return;
+      }
+
+      resultado.classList.add(categoria);
+      resultado.textContent = `Hola ${nombre}, tienes ${edad} años y eres clasificado como ${categoria}.`;
+    }
+  </script>
+
+</body>
+</html>
